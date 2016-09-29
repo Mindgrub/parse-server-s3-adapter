@@ -5,6 +5,7 @@
 
 var AWS = require('aws-sdk');
 var optionsFromArguments = require('./lib/optionsFromArguments');
+var mime = require('mime-types');
 
 // Creates an S3 session.
 // Providing AWS access, secret keys and bucket are mandatory
@@ -63,9 +64,13 @@ S3Adapter.prototype.createFile = function(filename, data, contentType) {
   if (this._directAccess) {
     params.ACL = "public-read"
   }
-  if (contentType) {
-    params.ContentType = contentType;
-  }
+
+  // Band-aid for parse-dashboard always sending text/plain as the content type.
+  contentType = mime.contentType(filename);
+
+  // if (contentType) {
+  //   params.ContentType = contentType;
+  // }
   if(this._globalCacheControl) {
     params.CacheControl = this._globalCacheControl;
   }
