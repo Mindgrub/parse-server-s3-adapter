@@ -67,6 +67,7 @@ S3Adapter.prototype.createFile = function(filename, data, contentType) {
 
   // Band-aid for parse-dashboard always sending text/plain as the content type.
   contentType = mime.contentType(filename);
+  params.ContentType = contentType;
 
   // if (contentType) {
   //   params.ContentType = contentType;
