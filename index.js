@@ -79,6 +79,7 @@ S3Adapter.prototype.createFile = function(filename, data, contentType) {
     return new Promise((resolve, reject) => {
       this._s3Client.upload(params, (err, data) => {
         if (err !== null) {
+          console.log(err)
           return reject(err);
         }
         resolve(data);
@@ -95,6 +96,7 @@ S3Adapter.prototype.deleteFile = function(filename) {
       };
       this._s3Client.deleteObject(params, (err, data) =>{
         if(err !== null) {
+          console.log(err)
           return reject(err);
         }
         resolve(data);
@@ -111,6 +113,7 @@ S3Adapter.prototype.getFileData = function(filename) {
     return new Promise((resolve, reject) => {
       this._s3Client.getObject(params, (err, data) => {
         if (err !== null) {
+          console.log(err)
           return reject(err);
         }
         // Something happened here...
